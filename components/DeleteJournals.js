@@ -2,8 +2,6 @@ import React from 'react';
 import {
     Button,
     View,
-    StyleSheet,
-    TextInput
 } from 'react-native';
 import { Formik } from 'formik'
 
@@ -19,12 +17,5 @@ const DeleteJournals = ({ deleteJournals }) => {
     )
 };
 
-const styles = StyleSheet.create({
-    textInput: {
-        height: 50,
-        fontSize: 15,
-        marginLeft: 5
-    }
-});
 
 export default DeleteJournals;

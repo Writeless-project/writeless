@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 import JournalList from './JournalList';
 import AddJournal from '../containers/AddJournal';
+import DeleteJournal from '../containers/DeleteJournal';
 import DeleteJournals from '../containers/DeleteJournals';
 import {Container, Content } from 'native-base';
 
@@ -33,6 +34,7 @@ class AllJournals extends Component {
                     <AddJournal />
                     <JournalList journals={journals} />
                     <DeleteJournals />
+                    <DeleteJournal />
                 </Content>
             </Container>
         );

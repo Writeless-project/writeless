@@ -2,6 +2,7 @@ import {
     ADD_ENTRY,
     ADD_JOURNAL, 
     UPDATE_JOURNAL,
+    DELETE_JOURNAL,
     DELETE_JOURNALS,
     FETCH_ALL_JOURNALS,
     RECEIVE_JOURNALS } from '../constants/ActionTypes';
@@ -33,6 +34,12 @@ export const receiveJournals = journals => {
 export const deleteJournals = () => {
     return {
         type: DELETE_JOURNALS
+    }
+};
+
+export const deleteJournal = () => {
+    return {
+        type: DELETE_JOURNAL
     }
 };
 

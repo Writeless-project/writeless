@@ -1,6 +1,7 @@
 export const ADD_JOURNAL = 'ADD_JOURNAL';
 export const UPDATE_JOURNAL = 'UPDATE_JOURNAL';
 export const DELETE_JOURNALS = 'DELETE JOURNALS';
+export const DELETE_JOURNAL = 'DELETE JOURNAL';
 
 export const ADD_ENTRY = 'ADD_ENTRY';
 
