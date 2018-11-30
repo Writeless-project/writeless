@@ -9,26 +9,31 @@ const renderList = (journals, deleteJournal) => {
         function callDeleteJournal() {
             deleteJournal(this.id);
         }
-        
-        return journals.map((journal, i) => {
-            // the buttons that appear when the item is swiped to the left
-            var swipeoutBtns = [{
-                text: 'Delete',
-                backgroundColor: '#dd0000',
-                onPress: callDeleteJournal.bind(journal)
-            }];
+
+        console.log('***************************************');
+        console.log(journals);
+        console.log('***************************************');
+
+        return (<Text>Awesome</Text>);
+        // return journals.map((journal, i) => {
+        //     // the buttons that appear when the item is swiped to the left
+        //     var swipeoutBtns = [{
+        //         text: 'Delete',
+        //         backgroundColor: '#dd0000',
+        //         onPress: callDeleteJournal.bind(journal)
+        //     }];
 
 
-            return (
-                <Swipeout key={i} right={swipeoutBtns}>
-                    <ListItem style={styles.listItem}>
-                        <Text>
-                            {journal.title}
-                        </Text>
-                    </ListItem>
-                </Swipeout>
-            )
-        });
+        //     return (
+        //         <Swipeout key={i} right={swipeoutBtns}>
+        //             <ListItem style={styles.listItem}>
+        //                 <Text>
+        //                     {journal.title}
+        //                 </Text>
+        //             </ListItem>
+        //         </Swipeout>
+        //     )
+        // });
     }
 }
 

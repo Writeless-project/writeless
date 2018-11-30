@@ -14,6 +14,9 @@ class AllJournals extends Component {
     }
 
     render() {
+        console.log('----------------------------')
+        console.log(this.props);
+        console.log('----------------------------')
         const { journals } = this.props;
 
         return (

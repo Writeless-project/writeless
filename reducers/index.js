@@ -49,7 +49,8 @@ const Journal = (state, action) => {
                 id: action.id,
                 title: action.payload.title,
                 content: action.payload.content,
-                createdAt: new Date()
+                createdAt: new Date(),
+                entries: []
             }
         default:
             return state;
@@ -78,17 +79,24 @@ const AddEntry = (state, action) => {
 const AddJournal = (state, action) => {
     switch (action.type) {
         case ADD_JOURNAL:
-            if (!state) {
-                state = [];
-            }
-            const journals = [...state, Journal(null, action)];
+            console.log('*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-');
+            console.log(state);
+            console.log('*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-');
+
+            console.log('----------------------------------');
+            console.log(action.payload);
+            console.log('----------------------------------');
+
+            let j = Journal(null, action);
+            const journals = {...state, j};
             saveJournals(journals);
             return journals;
         case RECEIVE_JOURNALS:
             return action.payload;
         case DELETE_JOURNALS:
-            deleteJournals();
-            return;
+            const noMoreJournals = {};
+            saveJournals(noMoreJournals);
+            return noMoreJournals;
         case DELETE_JOURNAL:
             deleteJournal(state, action);
             return;
