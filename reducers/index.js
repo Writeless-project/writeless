@@ -21,6 +21,8 @@ export default (state = [], action) => {
             return; // we might need to return something here
         case actionTypes.DELETE_JOURNAL:
             return action.journals;
+        case actionTypes.ADD_ENTRY:
+            return action.entries;
         default:
             return state;
     }

@@ -13,6 +13,7 @@ export default class AllJournals extends React.Component {
     render() {
         const { journals } = this.props || state; // object deconstruction
         const { navigation } = this.props;
+        
         return (
             <Container>
                 <Content>

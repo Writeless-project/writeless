@@ -16,6 +16,35 @@ import { AsyncStorage } from 'react-native';
 //     }
 // };
 
+const _addEntry = entries => {
+    return {
+        type: actionTypes.ADD_ENTRY,
+        entries: entries
+    }
+};
+
+export const addEntry = entry => {
+    return async (dispatch) => {
+        try {
+            // if we can access the state here, we won't need to get the entries again here
+            let entries = JSON.parse(await AsyncStorage.getItem('Entries')) || [];
+            
+            // add the new entries here instead of in the reducer, because of the async await needed to set AsyncStorage
+            entries.push({
+                id: Date.now(),
+                title: entry.title || JSON.stringify(new Date()),
+                content: entry.content,
+                createdAt: new Date()
+            });
+
+            await AsyncStorage.setItem('Entries', JSON.stringify(entries)); // set the entries in AsyncStorage
+            dispatch(_addEntry(entries)); // set the entries in the state. This is what gets sent to the store, and the store sends the state and the parameters to the reducer
+        } catch (err) {
+            console.error(err);
+        }
+    }
+};
+
 const _addJournal = journals => {
     return {
         type: actionTypes.ADD_JOURNAL,

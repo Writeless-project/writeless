@@ -5,6 +5,7 @@ import configureStore from './configureStore';
 import { Provider } from 'react-redux';
 import HomeScreen from './screens/HomeScreen';
 import AddNewJournal from './screens/AddNewJournal';
+import AddNewEntry from './screens/AddNewEntry';
 import EditJournalScreen from './screens/EditJournal';
 
 const store = configureStore();
@@ -13,7 +14,8 @@ const AppNavigator = createStackNavigator(
   {
     Home: HomeScreen,
     AddJournal: AddNewJournal,
-    EditJournal: EditJournalScreen
+    EditJournal: EditJournalScreen,
+    AddEntry: AddNewEntry
   }, {
     initialRouteName: 'Home'
   }

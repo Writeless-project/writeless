@@ -13,6 +13,10 @@ const renderList = (journals, navigation) => {
             navigation.navigate('EditJournal', this);
         }
 
+        function callAddEntry() {
+            navigation.navigate('AddEntry', this);
+        }
+
         return journals.map((journal, i) => {
             // the buttons that appear when the item is swiped to the left
             var swipeoutBtns = [{
@@ -27,7 +31,7 @@ const renderList = (journals, navigation) => {
 
             return (
                 <Swipeout key={i} right={swipeoutBtns} sensitivity={100} autoClose={true}>
-                    <ListItem style={styles.listItem} onPress={() => console.log(`Pressed ${journal.title || "No journals"}`)}>
+                    <ListItem style={styles.listItem} onPress={callAddEntry.bind(journal)}> 
                         <Text>
                             {journal.title || "No journals. Please press the Add button below to add a journal!"}
                         </Text>
