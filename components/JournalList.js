@@ -30,7 +30,7 @@ const renderList = (journals, navigation, deleteJournal) => {
                 right={swipeoutBtns} 
                 sensitivity={100} 
                 autoClose={true} 
-                style={{backgroundColor:'white'}}>
+                style={styles.swipeout}>
                     <ListItem style={styles.listItem} onPress={() => console.log(`Pressed ${journal.title || "No journals"}`)}>
                         <Text>
                             {journal.title || "No journals. Please press the Add button below to add a journal!"}
@@ -57,7 +57,12 @@ JournalList.defaultProps = {
 const styles = StyleSheet.create({
     listItem: {
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        paddingTop: 20,
+        paddingBottom: 20
+    },
+    swipeout: {
+        backgroundColor: 'white'
     }
 });
 
