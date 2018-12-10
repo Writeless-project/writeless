@@ -7,11 +7,11 @@ import {
 import { Formik } from 'formik';
 import { Text, Button, Item, Input, Form } from 'native-base';
 
-const AddEntry = ({ addEntry, navigation }) => {
-    console.log(addEntry)
+const AddEntry = ({ addEntry, navigation}) => {
+    selectedJournal = navigation.state.params;
     // Is this the 'react way' of doing this? I don't know any other way w/out making it a class.
     function onSubmit(formValues, {resetForm}) {
-        addEntry(formValues);
+        addEntry(formValues, selectedJournal);
         Keyboard.dismiss();
         resetForm({});
         navigation.goBack();
@@ -34,6 +34,7 @@ const AddEntry = ({ addEntry, navigation }) => {
                             <Input 
                                 placeholder="Enter More Stuff here"
                                 onChangeText={props.handleChange('content')}
+                                multiline
                                 value={props.values.content}
                             />
                         </Item>

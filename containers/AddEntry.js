@@ -4,8 +4,8 @@ import AddEntry from '../components/AddEntry';
 
 const mapDispatchToProps = dispatch => {
     return {
-        addEntry: entry => {
-            dispatch(addEntry(entry));
+        addEntry: (entry,selectedJournal) => {
+            dispatch(addEntry(entry, selectedJournal));
         }
     }
 }

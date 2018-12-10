@@ -1,21 +1,6 @@
 import * as actionTypes from '../constants/ActionTypes';
 import { AsyncStorage } from 'react-native';
 
-// export const addEntry = (entry, journal) => {
-//     return {
-//         type: actionTypes.ADD_ENTRY,
-//         id: Date.now(),
-//         payload: {entry, journal}
-//     }
-// };
-
-// export const deleteEntry = entryId => {
-//     return {
-//         type: DELETE_JOURNAL,
-//         payload: { entryId }
-//     }
-// };
-
 const _addEntry = entries => {
     return {
         type: actionTypes.ADD_ENTRY,
@@ -23,22 +8,67 @@ const _addEntry = entries => {
     }
 };
 
-export const addEntry = entry => {
+export const addEntry = (entry, selectedJournal) => {
     return async (dispatch) => {
         try {
+            console.log('addEntry', selectedJournal)
             // if we can access the state here, we won't need to get the entries again here
-            let entries = JSON.parse(await AsyncStorage.getItem('Entries')) || [];
+            let entries = JSON.parse(await AsyncStorage.getItem(`Entries${selectedJournal.id}`)) || [];
             
             // add the new entries here instead of in the reducer, because of the async await needed to set AsyncStorage
             entries.push({
+                journalId: selectedJournal.id,
                 id: Date.now(),
-                title: entry.title || JSON.stringify(new Date()),
+                title: entry.title || new Date().toDateString(),
                 content: entry.content,
                 createdAt: new Date()
             });
 
-            await AsyncStorage.setItem('Entries', JSON.stringify(entries)); // set the entries in AsyncStorage
+            await AsyncStorage.setItem(`Entries${selectedJournal.id}`, JSON.stringify(entries)); // set the entries in AsyncStorage
             dispatch(_addEntry(entries)); // set the entries in the state. This is what gets sent to the store, and the store sends the state and the parameters to the reducer
+        } catch (err) {
+            console.error(err);
+        }
+    }
+};
+
+
+const _deleteEntry = entries => {
+    return {
+        type: actionTypes.DELETE_ENTRY,
+        entries: entries
+    }
+};
+
+export const deleteEntry = (id) => {
+    return async (dispatch) => {
+        try {
+            // if we can access the state here, we won't need to get the entries again here
+            let entries = JSON.parse(await AsyncStorage.getItem('Entries'));
+
+            // only keep the entries that aren't the deleted entry
+            entries = entries.filter(entry => entry.id !== id);
+
+            await AsyncStorage.setItem('Entries', JSON.stringify(entries)); // set the entries in AsyncStorage
+            dispatch(_deleteEntry(entries)); // set the entries in the state
+        } catch (err) {
+            console.error(err);
+        }
+    }
+};
+
+const _deleteEntries = () => {
+    console.log('deleting Entries')
+    return {
+        type: actionTypes.DELETE_ENTRIES
+    }
+};
+
+export const deleteEntries = (id) => {
+    return async (dispatch) => {
+        try {
+            await AsyncStorage.removeItem(`Entries${id}`); // remove the entries from AsyncStorage
+            dispatch(_deleteEntries()); // remove the entries from the state
         } catch (err) {
             console.error(err);
         }
@@ -132,6 +162,9 @@ const _deleteJournal = journals => {
 export const deleteJournal = (id) => {
     return async (dispatch) => {
         try {
+            // delete the entries from the journal first
+            deleteEntries(id);
+
             // if we can access the state here, we won't need to get the journals again here
             let journals = JSON.parse(await AsyncStorage.getItem('Journals'));
 
@@ -157,6 +190,27 @@ export const deleteJournals = () => {
         try {
             await AsyncStorage.removeItem('Journals'); // remove the journals from AsyncStorage
             dispatch(_deleteJournals()); // remove the journals from the state
+        } catch (err) {
+            console.error(err);
+        }
+    }
+};
+
+const _fetchAllEntries = entries => {
+    console.log('dispatched')
+    return {
+        type: actionTypes.RECEIVE_ENTRIES,
+        entries: entries
+    }
+}; 
+
+export const fetchAllEntries = (selectedJournal) => {
+    return async dispatch => {
+        try {
+            console.log('in action', selectedJournal)
+            const entries = await AsyncStorage.getItem(`Entries${selectedJournal.id}`);
+            console.log('in action entries', entries)
+            dispatch(_fetchAllEntries(JSON.parse(entries)));
         } catch (err) {
             console.error(err);
         }

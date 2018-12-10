@@ -7,7 +7,10 @@ import { Entypo  } from '@expo/vector-icons';
 
 export default class AddNewEntry extends React.Component {
 
-    back;
+    constructor(props) {
+        super(props);
+        selectedJournal = this.props.navigation.state.params;
+    }
     
     static navigationOptions = ({navigation}) => ({
         title: "New Entry",
@@ -24,7 +27,7 @@ export default class AddNewEntry extends React.Component {
     render() {
         return (
             <StyleProvider style={getTheme()}>
-                <AddEntry navigation={this.props.navigation}/>
+                <AddEntry navigation={this.props.navigation} selectedJournal={selectedJournal}/>
             </StyleProvider>
         );
     }

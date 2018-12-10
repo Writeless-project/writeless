@@ -3,38 +3,33 @@ import { StyleSheet } from 'react-native';
 import { Text, List, ListItem } from 'native-base';
 import Swipeout from 'react-native-swipeout';
 
-const renderList = (journals, navigation, deleteJournal) => {
-    console.log(deleteJournal, navigation)
-    if (journals) {
-        function callDeleteJournal() {
-            deleteJournal(this.id);
+const renderList = (entries, navigation) => {
+    if (entries) {
+        function callDeleteEntry() {
+            deleteEntry(this.id);
         }
 
-        function callEditJournal() {
-            navigation.navigate('EditJournal', this);
+        function callEditEntry() {
+            navigation.navigate('EditEntry', this);
         }
 
-        function openEntryList() {
-            navigation.navigate('Entries', this);
-        }
-
-        return journals.map((journal, i) => {
+        return entries.map((entry, i) => {
             // the buttons that appear when the item is swiped to the left
             var swipeoutBtns = [{
                 text: 'Edit',
                 backgroundColor: '#a6a6a6',
-                onPress: callEditJournal.bind(journal)
+                onPress: callEditEntry.bind(entry)
             }, {
                 text: 'Delete',
                 backgroundColor: '#dd0000',
-                onPress: callDeleteJournal.bind(journal)
+                onPress: callDeleteEntry.bind(entry)
             }];
 
             return (
                 <Swipeout key={i} right={swipeoutBtns} sensitivity={100} autoClose={true}>
-                    <ListItem style={styles.listItem} onPress={openEntryList.bind(journal)}> 
+                    <ListItem style={styles.listItem}> 
                         <Text>
-                            {journal.title || "No journals. Please press the Add button below to add a journal!"}
+                            {entry.title || "No entries. Please press the Add button below to add an entry!"}
                         </Text>
                     </ListItem>
                 </Swipeout>
@@ -43,16 +38,16 @@ const renderList = (journals, navigation, deleteJournal) => {
     }
 }
 
-const JournalList = ({ journals, navigation }) => {
+const EntryList = ({ entries, navigation }) => {
     return (
         <List>
-            {renderList(journals, navigation)}
+            {renderList(entries, navigation)}
         </List>
     )
 }
 
-JournalList.defaultProps = {
-    journals: []
+EntryList.defaultProps = {
+    entries: []
 }
 
 const styles = StyleSheet.create({
@@ -62,4 +57,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default JournalList;
+export default EntryList;
