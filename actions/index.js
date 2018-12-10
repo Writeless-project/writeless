@@ -2,21 +2,6 @@ import * as actionTypes from '../constants/ActionTypes';
 import { AsyncStorage } from 'react-native';
 import { DatePicker } from 'native-base';
 
-// export const addEntry = (entry, journal) => {
-//     return {
-//         type: actionTypes.ADD_ENTRY,
-//         id: Date.now(),
-//         payload: {entry, journal}
-//     }
-// };
-
-// export const deleteEntry = entryId => {
-//     return {
-//         type: DELETE_JOURNAL,
-//         payload: { entryId }
-//     }
-// };
-
 const _addJournal = journals => {
     return {
         type: actionTypes.ADD_JOURNAL,

@@ -8,11 +8,9 @@ import { Formik } from 'formik';
 import { Text, Button, Item, Input, Form } from 'native-base';
 
 const AddJournal = ({ addJournal, navigation }) => {
-    // console.log(addJournal)
-    function onSubmit(formValues, {resetForm}) {
+    function onSubmit(formValues) {
         addJournal(formValues);
-        Keyboard.dismiss();
-        // resetForm({});
+        // Keyboard.dismiss();
         navigation.goBack();
     }
     
