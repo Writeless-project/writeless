@@ -10,7 +10,6 @@ import { Text, Button, Item, Input, Form } from 'native-base';
 const AddJournal = ({ addJournal, navigation }) => {
     function onSubmit(formValues) {
         addJournal(formValues);
-        // Keyboard.dismiss();
         navigation.goBack();
     }
     
@@ -27,14 +26,6 @@ const AddJournal = ({ addJournal, navigation }) => {
                                 value={props.values.title}
                             />
                         </Item>
-                        <Item>
-                            <Input 
-                                placeholder="Enter More Stuff here"
-                                onChangeText={props.handleChange('content')}
-                                value={props.values.content}
-                            />
-                        </Item>
-
                         <Button 
                         full 
                         style={styles.button}

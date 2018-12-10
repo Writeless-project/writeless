@@ -24,7 +24,7 @@ const EditJournal = (props) => {
         <Form>
             <Formik 
                 onSubmit={onSubmit}
-                initialValues={{title: selectedJournal.title, content: selectedJournal.content}} >
+                initialValues={{title: selectedJournal.title}} >
                 {props => (
                     <View>
                         <Item>
@@ -34,14 +34,6 @@ const EditJournal = (props) => {
                                 value={props.values.title}
                             />
                         </Item>
-                        <Item>
-                            <Input 
-                                placeholder="Enter More Stuff here"
-                                onChangeText={props.handleChange('content')}
-                                value={props.values.content}
-                            />
-                        </Item>
-
                         <Button 
                             full 
                             style={styles.button}

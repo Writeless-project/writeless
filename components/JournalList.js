@@ -44,7 +44,8 @@ const renderList = (journals, navigation, deleteJournal) => {
             return (
                 <Swipeout key={i} 
                 right={swipeoutBtns} 
-                sensitivity={100} 
+                sensitivity={50}
+                autoClose 
                 style={styles.swipeout}>
                     <ListItem style={styles.listItem} onPress={() => console.log(`Pressed ${journal.title || "No journals"}`)}>
                         <Text>
