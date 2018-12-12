@@ -1,5 +1,4 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import configureStore from './configureStore';
 import { Provider } from 'react-redux';
@@ -8,6 +7,7 @@ import AddNewJournal from './screens/AddNewJournal';
 import AddNewEntry from './screens/AddNewEntry';
 import EditJournalScreen from './screens/EditJournal';
 import EditEntryScreen from './screens/EditEntry';
+import ViewEntryScreen from './screens/ViewEntry';
 import EntriesScreen from './screens/EntriesScreen';
 
 /* For clearing entries - Leave for development */
@@ -35,6 +35,7 @@ const AppNavigator = createStackNavigator(
     AddEntry: AddNewEntry,
     EditJournal: EditJournalScreen,
     EditEntry: EditEntryScreen,
+    ViewEntry: ViewEntryScreen,
   }, {
     initialRouteName: 'Home'
   }

@@ -13,6 +13,10 @@ const renderList = (entries, navigation, deleteEntry) => {
             navigation.navigate('EditEntry', this);
         }
 
+        function viewEntry() {
+            navigation.navigate('ViewEntry', this)
+        }
+
         return entries.map((entry, i) => {
             // the buttons that appear when the item is swiped to the left
             var swipeoutBtns = [{
@@ -27,7 +31,7 @@ const renderList = (entries, navigation, deleteEntry) => {
 
             return (
                 <Swipeout key={i} right={swipeoutBtns} sensitivity={100} autoClose={true}>
-                    <ListItem style={styles.listItem}> 
+                    <ListItem style={styles.listItem} onPress={viewEntry.bind(entry)}> 
                         <Text>
                             {entry.title || "No entries. Please press the Add button below to add an entry!"}
                         </Text>
