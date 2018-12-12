@@ -1,12 +1,28 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, AlertIOS } from 'react-native';
 import { Text, List, ListItem } from 'native-base';
 import Swipeout from 'react-native-swipeout';
 
 const renderList = (journals, navigation, deleteJournal) => {
     if (journals) {
-        function callDeleteJournal() {
-            deleteJournal(this.id);
+
+        function confirmDelete() {
+            const journal = this;
+            
+            AlertIOS.alert(
+                'Confirm Delete',
+                `Are you sure you would like to delete ${journal.title}?`,
+                [
+                  {
+                    text: 'Cancel'
+                },
+                {
+                    text: 'Confirm',
+                    onPress: () => deleteJournal(journal.id),
+                    style: 'destructive',
+                  },
+                ],
+              );
         }
         
         function callEditJournal() {
@@ -26,7 +42,7 @@ const renderList = (journals, navigation, deleteJournal) => {
             }, {
                 text: 'Delete',
                 backgroundColor: '#dd0000',
-                onPress: callDeleteJournal.bind(journal)
+                onPress: confirmDelete.bind(journal)
             }];
 
             return (
@@ -53,7 +69,12 @@ const JournalList = ({ journals, navigation, deleteJournal }) => {
 const styles = StyleSheet.create({
     listItem: {
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        paddingTop: 20,
+        paddingBottom: 20
+    },
+    swipeout: {
+        backgroundColor: 'white'
     }
 });
 

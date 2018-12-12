@@ -136,11 +136,12 @@ export const addJournal = (journal) => {
             let journals = JSON.parse(await AsyncStorage.getItem('Journals')) || [];
             
             // add the new journal here instead of in the reducer, because of the async await needed to set AsyncStorage
+            let date = new Date();
+
             journals.push({
                 id: Date.now(),
-                title: journal.title || JSON.stringify(new Date()),
-                content: journal.content,
-                createdAt: new Date()
+                title: journal.title || date.toDateString(),
+                createdAt: date
             });
             
             await AsyncStorage.setItem('Journals', JSON.stringify(journals)); // set the journals in AsyncStorage
@@ -167,25 +168,19 @@ export const editJournal = (formValues, selectedJournal) => {
             
             // only keep the journal that matches the clicked on journal's id
             journals = journals.map(currJournal => {
-                // if it's the editted journal, return the new content
-                if (currJournal.id === selectedJournal.id) {
-                    // check if the journals are equivalent. If so, no changes are needed
-                    if (currJournal.title === formValues.title && 
-                        currJournal.content === formValues.content) {
-                            // set skipUpdate to true to avoid setting the data again
-                            skipUpdate = true;
-                            return currJournal;
-                    }
-                    // if the journal has changed, return the updated journal
+                // if it's the edited journal, return the new content
+                // as soon as we have properties other than title we'll have to loop through keys & compare dynamically
+                if (currJournal.id === selectedJournal.id && currJournal.title != formValues.title) {
                     return {
                         id: currJournal.id,
-                        title: formValues.title || JSON.stringify(new Date()),
-                        content: formValues.content,
+                        title: formValues.title || new Date().toDateString(),
                         createdAt: currJournal.createdAt
                     }
+                } else {
+                    // else return the already existing content
+                    skipUpdate = true;
+                    return currJournal;
                 }
-                // else return the already existing content
-                return currJournal;
             });
 
             // if skipUpdate is false, don't update the state or AsyncStorage

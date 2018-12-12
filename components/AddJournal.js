@@ -11,8 +11,6 @@ const AddJournal = ({ addJournal, navigation }) => {
     // Is this the 'react way' of doing this? I don't know any other way w/out making it a class.
     function onSubmit(formValues, {resetForm}) {
         addJournal(formValues);
-        Keyboard.dismiss();
-        resetForm({});
         navigation.goBack();
     }
     
@@ -29,14 +27,6 @@ const AddJournal = ({ addJournal, navigation }) => {
                                 value={props.values.title}
                             />
                         </Item>
-                        <Item>
-                            <Input 
-                                placeholder="Enter More Stuff here"
-                                onChangeText={props.handleChange('content')}
-                                value={props.values.content}
-                            />
-                        </Item>
-
                         <Button 
                         full 
                         style={styles.button}
