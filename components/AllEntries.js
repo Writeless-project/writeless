@@ -1,30 +1,27 @@
-import React, { Component } from 'react';
-import Entr from '../containers/JournalList';
-import DeleteJournals from '../containers/DeleteJournals';
-import { Container, Content } from 'native-base';
+import React from 'react';
+import EntryList from '../containers/EntryList';
+import {Container, Content } from 'native-base';
 
 
-class AllJournals extends Component {
-    componentDidMount() {
-        this._initial();
-    }
-
-    _initial() {
-        this.props.fetchAllJournals();
+export default class AllEntries extends React.Component {
+    constructor(props) {
+        super(props); // must use super function to access 'this' in the constructor
+        selectedJournal = this.props.navigation.state.params;
+        this.props.fetchAllEntries(selectedJournal); // add entries to this.props by getting them from AsyncStorage
     }
 
     render() {
-        const { journals } = this.props || state;
+        const { entries } = this.props.state;
+        const { navigation } = this.props;
 
         return (
             <Container>
                 <Content>
-                    <JournalList journals={journals || [{}]} />
-                    <DeleteJournals />
+                    <EntryList 
+                        entries={entries || [{}]} 
+                        navigation={navigation}/>
                 </Content>
             </Container>
         );
     }
 }
-
-export default AllJournals;

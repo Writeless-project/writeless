@@ -3,17 +3,38 @@ import { StyleSheet } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import configureStore from './configureStore';
 import { Provider } from 'react-redux';
-import HomeScreen from './screens/HomeScreen';
+import JournalsScreen from './screens/JournalsScreen';
 import AddNewJournal from './screens/AddNewJournal';
+import AddNewEntry from './screens/AddNewEntry';
 import EditJournalScreen from './screens/EditJournal';
+import EditEntryScreen from './screens/EditEntry';
+import EntriesScreen from './screens/EntriesScreen';
+
+/* For clearing entries - Leave for development */
+
+// import { AsyncStorage } from 'react-native'
+// (async () => {
+//   let allKeys = await AsyncStorage.getAllKeys()
+//   for (let i = 0; i < allKeys.length; i++) {
+//     console.log(allKeys[i])
+//     // if (allKeys[i] !== 'Journals') {
+//       console.log(allKeys[i])
+//       await AsyncStorage.removeItem(allKeys[i]);
+//     //  }
+//   }
+//   await AsyncStorage.removeItem('Entries');
+// })()
 
 const store = configureStore();
 
 const AppNavigator = createStackNavigator(
   {
-    Home: HomeScreen,
+    Home: JournalsScreen,
+    Entries: EntriesScreen,
     AddJournal: AddNewJournal,
-    EditJournal: EditJournalScreen
+    AddEntry: AddNewEntry,
+    EditJournal: EditJournalScreen,
+    EditEntry: EditEntryScreen,
   }, {
     initialRouteName: 'Home'
   }

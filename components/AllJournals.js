@@ -11,7 +11,7 @@ export default class AllJournals extends React.Component {
     }
     
     render() {
-        const { journals } = this.props || state;
+        const { journals } = this.props.state;
         const { navigation } = this.props;
 
         let enableDelete = journals == null || journals.length === 0 ? false : true;

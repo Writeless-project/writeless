@@ -24,11 +24,15 @@ const renderList = (journals, navigation, deleteJournal) => {
                 ],
               );
         }
-
+        
         function callEditJournal() {
             navigation.navigate('EditJournal', this);
         }
-
+        
+        function openEntryList() {
+            navigation.navigate('Entries', this);
+        }
+        
         return journals.map((journal, i) => {
             // the buttons that appear when the item is swiped to the left
             var swipeoutBtns = [{
@@ -42,12 +46,8 @@ const renderList = (journals, navigation, deleteJournal) => {
             }];
 
             return (
-                <Swipeout key={i} 
-                right={swipeoutBtns} 
-                sensitivity={50}
-                autoClose 
-                style={styles.swipeout}>
-                    <ListItem style={styles.listItem} onPress={() => console.log(`Pressed ${journal.title || "No journals"}`)}>
+                <Swipeout key={i} right={swipeoutBtns} sensitivity={100} autoClose={true}>
+                    <ListItem style={styles.listItem} onPress={openEntryList.bind(journal)}> 
                         <Text>
                             {journal.title || "No journals. Please press the Add button below to add a journal!"}
                         </Text>
@@ -64,10 +64,6 @@ const JournalList = ({ journals, navigation, deleteJournal }) => {
             {renderList(journals, navigation, deleteJournal)}
         </List>
     )
-}
-
-JournalList.defaultProps = {
-    journals: []
 }
 
 const styles = StyleSheet.create({

@@ -1,19 +1,20 @@
 import React from 'react';
-import AddEntry from '../containers/AddEntry';
+import EditEntry from '../containers/EditEntry';
 import getTheme from '../native-base-theme/components';
 import { StyleProvider } from 'native-base';
 import { View, TouchableOpacity } from 'react-native';
 import { Entypo  } from '@expo/vector-icons';
 
-export default class AddNewEntry extends React.Component {
+export default class EditEntryScreen extends React.Component {
+    selectedEntryId = null;
 
     constructor(props) {
         super(props);
-        selectedJournal = this.props.navigation.state.params;
+        selectedEntry = this.props.navigation.state.params;
     }
     
     static navigationOptions = ({navigation}) => ({
-        title: "New Entry",
+        title: "Edit Entry",
         headerLeft: (
             <View>
                 <TouchableOpacity onPress={() => navigation.goBack() }>
@@ -21,13 +22,12 @@ export default class AddNewEntry extends React.Component {
                 </TouchableOpacity>
             </View>
         ),
-      });
-
+    });
 
     render() {
         return (
             <StyleProvider style={getTheme()}>
-                <AddEntry navigation={this.props.navigation} selectedJournal={selectedJournal}/>
+                <EditEntry navigation={this.props.navigation} />
             </StyleProvider>
         );
     }

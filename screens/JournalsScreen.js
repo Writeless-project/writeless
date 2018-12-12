@@ -4,7 +4,11 @@ import getTheme from '../native-base-theme/components';
 import { StyleProvider, Container } from 'native-base';
 import AddNewButton from '../components/AddNewButton';
 
-export default class HomeScreen extends React.Component {
+export default class JournalsScreen extends React.Component {
+  constructor(props) {
+    super(props);
+  } 
+  
   // for the header text on the screen
   static navigationOptions = {
     title: 'Journals'
