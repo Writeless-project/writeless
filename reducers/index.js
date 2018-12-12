@@ -1,15 +1,7 @@
 import * as actionTypes from '../constants/ActionTypes';
-import { AsyncStorage } from 'react-native';
+import { combineReducers } from 'redux';
 
-export const deleteJournals = async () => {
-    try {
-        await AsyncStorage.removeItem('Journals');
-    } catch (err) {
-        console.error(`Error (deleteJournals): ${err.message}`);
-    }
-}
-
-export default (state = [], action) => {
+function journals(previousState = [], action) {
     switch (action.type) {
         case actionTypes.ADD_JOURNAL:
             return action.journals;
@@ -21,7 +13,13 @@ export default (state = [], action) => {
             return; // we might need to return something here
         case actionTypes.DELETE_JOURNAL:
             return action.journals;
-        // create a second reducer function/ file here
+        default:
+            return previousState;
+    }
+};
+
+function entries(previousState = [], action) {
+    switch (action.type) {
         case actionTypes.ADD_ENTRY:
             return action.entries;
         case actionTypes.RECEIVE_ENTRIES:
@@ -31,8 +29,15 @@ export default (state = [], action) => {
         case actionTypes.DELETE_ENTRY:
             return action.entries;
         case actionTypes.DELETE_ENTRIES:
-            return action.entries;
+            return // we might need to return something here;
         default:
-            return state;
+            return previousState;
     }
-};
+}
+
+const journalApp = combineReducers({
+    journals,
+    entries
+});
+
+export default journalApp;

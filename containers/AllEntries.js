@@ -4,14 +4,13 @@ import AllEntries from '../components/AllEntries';
 
 const mapDispatchToProps = state => {
     return {
-        entries: state
+        state
     };
 };
 
 const mapStateToProps = dispatch => {
     return {
         fetchAllEntries: (selectedJournal) => {
-            console.log('during fetch', selectedJournal)
             dispatch(fetchAllEntries(selectedJournal));
         }
     }

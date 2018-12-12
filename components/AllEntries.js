@@ -11,12 +11,15 @@ export default class AllEntries extends React.Component {
     }
 
     render() {
+        const { entries } = this.props.state;
+        const { navigation } = this.props;
+
         return (
             <Container>
                 <Content>
                     <EntryList 
-                        entries={this.props.entries || [{}]} 
-                        navigation={this.props.navigation}/>
+                        entries={entries || [{}]} 
+                        navigation={navigation}/>
                 </Content>
             </Container>
         );

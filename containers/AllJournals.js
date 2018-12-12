@@ -4,7 +4,7 @@ import AllJournals from '../components/AllJournals';
 
 const mapDispatchToProps = state => {
     return {
-        journals: state
+        state
     };
 };
 

@@ -11,7 +11,6 @@ const _addEntry = entries => {
 export const addEntry = (entry, selectedJournal) => {
     return async (dispatch) => {
         try {
-            console.log('addEntry', selectedJournal)
             // if we can access the state here, we won't need to get the entries again here
             let entries = JSON.parse(await AsyncStorage.getItem(`Entries${selectedJournal.id}`)) || [];
             
@@ -44,12 +43,12 @@ export const deleteEntry = (id) => {
     return async (dispatch) => {
         try {
             // if we can access the state here, we won't need to get the entries again here
-            let entries = JSON.parse(await AsyncStorage.getItem('Entries'));
+            let entries = JSON.parse(await AsyncStorage.getItem(`Entries${id}`));
 
             // only keep the entries that aren't the deleted entry
             entries = entries.filter(entry => entry.id !== id);
 
-            await AsyncStorage.setItem('Entries', JSON.stringify(entries)); // set the entries in AsyncStorage
+            await AsyncStorage.setItem(`Entries${id}`, JSON.stringify(entries)); // set the entries in AsyncStorage
             dispatch(_deleteEntry(entries)); // set the entries in the state
         } catch (err) {
             console.error(err);
@@ -58,7 +57,6 @@ export const deleteEntry = (id) => {
 };
 
 const _deleteEntries = () => {
-    console.log('deleting Entries')
     return {
         type: actionTypes.DELETE_ENTRIES
     }
@@ -95,7 +93,7 @@ export const addJournal = (journal) => {
                 content: journal.content,
                 createdAt: new Date()
             });
-
+            
             await AsyncStorage.setItem('Journals', JSON.stringify(journals)); // set the journals in AsyncStorage
             dispatch(_addJournal(journals)); // set the journals in the state
         } catch (err) {
@@ -197,7 +195,6 @@ export const deleteJournals = () => {
 };
 
 const _fetchAllEntries = entries => {
-    console.log('dispatched')
     return {
         type: actionTypes.RECEIVE_ENTRIES,
         entries: entries
@@ -207,9 +204,7 @@ const _fetchAllEntries = entries => {
 export const fetchAllEntries = (selectedJournal) => {
     return async dispatch => {
         try {
-            console.log('in action', selectedJournal)
             const entries = await AsyncStorage.getItem(`Entries${selectedJournal.id}`);
-            console.log('in action entries', entries)
             dispatch(_fetchAllEntries(JSON.parse(entries)));
         } catch (err) {
             console.error(err);

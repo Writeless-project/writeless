@@ -19,7 +19,6 @@ export default class EntriesScreen extends React.Component {
 }
 
   render() {
-
     return (
       <StyleProvider style={getTheme()}>
         <Container>

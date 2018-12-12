@@ -16,10 +16,10 @@ import EntriesScreen from './screens/EntriesScreen';
 //   let allKeys = await AsyncStorage.getAllKeys()
 //   for (let i = 0; i < allKeys.length; i++) {
 //     console.log(allKeys[i])
-//     if (allKeys[i] !== 'Journals') {
+//     // if (allKeys[i] !== 'Journals') {
 //       console.log(allKeys[i])
-//        await AsyncStorage.removeItem(allKeys[i]);
-//      }
+//       await AsyncStorage.removeItem(allKeys[i]);
+//     //  }
 //   }
 //   await AsyncStorage.removeItem('Entries');
 // })()

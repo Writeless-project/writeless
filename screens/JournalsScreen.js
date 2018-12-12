@@ -7,8 +7,8 @@ import AddNewButton from '../components/AddNewButton';
 export default class JournalsScreen extends React.Component {
   constructor(props) {
     super(props);
-    console.log('navvvv', this.props.navigation)
   } 
+  
   // for the header text on the screen
   static navigationOptions = {
     title: 'Journals'

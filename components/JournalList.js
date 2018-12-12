@@ -4,20 +4,19 @@ import { Text, List, ListItem } from 'native-base';
 import Swipeout from 'react-native-swipeout';
 
 const renderList = (journals, navigation, deleteJournal) => {
-    console.log(deleteJournal, navigation)
     if (journals) {
         function callDeleteJournal() {
             deleteJournal(this.id);
         }
-
+        
         function callEditJournal() {
             navigation.navigate('EditJournal', this);
         }
-
+        
         function openEntryList() {
             navigation.navigate('Entries', this);
         }
-
+        
         return journals.map((journal, i) => {
             // the buttons that appear when the item is swiped to the left
             var swipeoutBtns = [{
@@ -43,16 +42,12 @@ const renderList = (journals, navigation, deleteJournal) => {
     }
 }
 
-const JournalList = ({ journals, navigation }) => {
+const JournalList = ({ journals, navigation, deleteJournal }) => {
     return (
         <List>
-            {renderList(journals, navigation)}
+            {renderList(journals, navigation, deleteJournal)}
         </List>
     )
-}
-
-JournalList.defaultProps = {
-    journals: []
 }
 
 const styles = StyleSheet.create({
