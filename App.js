@@ -7,6 +7,7 @@ import JournalsScreen from './screens/JournalsScreen';
 import AddNewJournal from './screens/AddNewJournal';
 import AddNewEntry from './screens/AddNewEntry';
 import EditJournalScreen from './screens/EditJournal';
+import EditEntryScreen from './screens/EditEntry';
 import EntriesScreen from './screens/EntriesScreen';
 
 /* For clearing entries - Leave for development */
@@ -29,11 +30,11 @@ const store = configureStore();
 const AppNavigator = createStackNavigator(
   {
     Home: JournalsScreen,
-    AddJournal: AddNewJournal,
-    EditJournal: EditJournalScreen,
     Entries: EntriesScreen,
+    AddJournal: AddNewJournal,
     AddEntry: AddNewEntry,
-    // EditEntry: EditEntry
+    EditJournal: EditJournalScreen,
+    EditEntry: EditEntryScreen,
   }, {
     initialRouteName: 'Home'
   }

@@ -31,6 +31,54 @@ export const addEntry = (entry, selectedJournal) => {
     }
 };
 
+const _editEntry = entries => {
+    return {
+        type: actionTypes.EDIT_ENTRY,
+        entries: entries
+    }
+};
+
+export const editEntry = (formValues, selectedEntry) => {
+    return async (dispatch) => {
+        try {
+            let skipUpdate = false;
+            // if we can access the state here, we won't need to get the journals again here
+            let entries = JSON.parse(await AsyncStorage.getItem(`Entries${selectedEntry.journalId}`)) || [];
+            
+            // only keep the journal that matches the clicked on journal's id
+            entries = entries.map(currEntry => {
+                // if it's the editted journal, return the new content
+                if (currEntry.id === selectedEntry.id) {
+                    // check if the journals are equivalent. If so, no changes are needed
+                    if (currEntry.title === formValues.title && 
+                        currEntry.content === formValues.content) {
+                            // set skipUpdate to true to avoid setting the data again
+                            skipUpdate = true;
+                            return currEntry;
+                    }
+                    // if the journal has changed, return the updated journal
+                    return {
+                        journalId: currEntry.journalId,
+                        id: currEntry.id,
+                        title: formValues.title || new Date().toDateString(),
+                        content: formValues.content,
+                        createdAt: currEntry.createdAt
+                    }
+                }
+                // else return the already existing content
+                return currEntry;
+            });
+
+            // if skipUpdate is false, don't update the state or AsyncStorage
+            if (!skipUpdate) {
+                await AsyncStorage.setItem(`Entries${selectedEntry.journalId}`, JSON.stringify(entries)); // set the journals in AsyncStorage
+                dispatch(_editEntry(entries)); // set the journals in the state
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    }
+};
 
 const _deleteEntry = entries => {
     return {
@@ -39,16 +87,16 @@ const _deleteEntry = entries => {
     }
 };
 
-export const deleteEntry = (id) => {
+export const deleteEntry = (entry) => {
     return async (dispatch) => {
         try {
             // if we can access the state here, we won't need to get the entries again here
-            let entries = JSON.parse(await AsyncStorage.getItem(`Entries${id}`));
+            let entries = JSON.parse(await AsyncStorage.getItem(`Entries${entry.journalId}`));
 
             // only keep the entries that aren't the deleted entry
-            entries = entries.filter(entry => entry.id !== id);
+            entries = entries.filter(currEntry => currEntry.id !== entry.id);
 
-            await AsyncStorage.setItem(`Entries${id}`, JSON.stringify(entries)); // set the entries in AsyncStorage
+            await AsyncStorage.setItem(`Entries${entry.journalId}`, JSON.stringify(entries)); // set the entries in AsyncStorage
             dispatch(_deleteEntry(entries)); // set the entries in the state
         } catch (err) {
             console.error(err);
@@ -58,7 +106,8 @@ export const deleteEntry = (id) => {
 
 const _deleteEntries = () => {
     return {
-        type: actionTypes.DELETE_ENTRIES
+        type: actionTypes.DELETE_ENTRIES,
+        entries: []
     }
 };
 
@@ -179,14 +228,18 @@ export const deleteJournal = (id) => {
 
 const _deleteJournals = () => {
     return {
-        type: actionTypes.DELETE_JOURNALS
+        type: actionTypes.DELETE_JOURNALS,
+        journals: []
     }
 };
 
 export const deleteJournals = () => {
     return async (dispatch) => {
         try {
-            await AsyncStorage.removeItem('Journals'); // remove the journals from AsyncStorage
+            let allKeys = await AsyncStorage.getAllKeys()
+            for (let i = 0; i < allKeys.length; i++) {
+                await AsyncStorage.removeItem(allKeys[i]);
+            }
             dispatch(_deleteJournals()); // remove the journals from the state
         } catch (err) {
             console.error(err);

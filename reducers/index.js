@@ -10,7 +10,7 @@ function journals(previousState = [], action) {
         case actionTypes.EDIT_JOURNAL:
             return action.journals;
         case actionTypes.DELETE_JOURNALS:
-            return; // we might need to return something here
+            return action.journals;
         case actionTypes.DELETE_JOURNAL:
             return action.journals;
         default:
@@ -29,7 +29,7 @@ function entries(previousState = [], action) {
         case actionTypes.DELETE_ENTRY:
             return action.entries;
         case actionTypes.DELETE_ENTRIES:
-            return // we might need to return something here;
+            return action.entries;
         default:
             return previousState;
     }

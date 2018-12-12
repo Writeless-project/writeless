@@ -3,10 +3,10 @@ import { StyleSheet } from 'react-native';
 import { Text, List, ListItem } from 'native-base';
 import Swipeout from 'react-native-swipeout';
 
-const renderList = (entries, navigation) => {
+const renderList = (entries, navigation, deleteEntry) => {
     if (entries) {
         function callDeleteEntry() {
-            deleteEntry(this.id);
+            deleteEntry(this);
         }
 
         function callEditEntry() {
@@ -38,10 +38,10 @@ const renderList = (entries, navigation) => {
     }
 }
 
-const EntryList = ({ entries, navigation }) => {
+const EntryList = ({ entries, navigation, deleteEntry }) => {
     return (
         <List>
-            {renderList(entries, navigation)}
+            {renderList(entries, navigation, deleteEntry)}
         </List>
     )
 }
