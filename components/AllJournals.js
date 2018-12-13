@@ -1,5 +1,5 @@
 import React from 'react';
-import JournalList from '../containers/JournalList';
+import RenderList from '../containers/JournalList';
 import DeleteJournals from '../containers/DeleteJournals';
 import {Container, Content } from 'native-base';
 
@@ -19,7 +19,7 @@ export default class AllJournals extends React.Component {
         return (
             <Container>
                 <Content>
-                    <JournalList journals={journals || [{}]} navigation={navigation}/>
+                    <RenderList journals={journals || [{}]} navigation={navigation}/>
                     <DeleteJournals enabled={enableDelete}/>
                 </Content>
             </Container>

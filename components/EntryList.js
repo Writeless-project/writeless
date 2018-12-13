@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, AlertIOS } from 'react-native';
+import { StyleSheet, AlertIOS, Share } from 'react-native';
 import { Text, List, ListItem } from 'native-base';
 import Swipeout from 'react-native-swipeout';
 
@@ -28,6 +28,18 @@ const renderList = (entries, navigation, deleteEntry) => {
             navigation.navigate('EditEntry', this);
         }
 
+        function shareEntry() {
+            Share.share({
+                message: `${this.title}\n${this.content}`,
+                url: undefined,
+                title: this.title
+            }, {
+                excludedActivityTypes: [
+                    'com.apple.UIKit.activity.PostToFacebook'
+                  ]
+            });
+        }
+
         function viewEntry() {
             navigation.navigate('ViewEntry', this)
         }
@@ -35,6 +47,10 @@ const renderList = (entries, navigation, deleteEntry) => {
         return entries.map((entry, i) => {
             // the buttons that appear when the item is swiped to the left
             var swipeoutBtns = [{
+                text: 'Share',
+                backgroundColor: '#5bc0de',
+                onPress: shareEntry.bind(entry)
+            }, {
                 text: 'Edit',
                 backgroundColor: '#a6a6a6',
                 onPress: callEditEntry.bind(entry)
@@ -63,10 +79,6 @@ const EntryList = ({ entries, navigation, deleteEntry }) => {
             {renderList(entries, navigation, deleteEntry)}
         </List>
     )
-}
-
-EntryList.defaultProps = {
-    entries: []
 }
 
 const styles = StyleSheet.create({
