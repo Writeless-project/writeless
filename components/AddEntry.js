@@ -25,14 +25,14 @@ const AddEntry = ({ addEntry, navigation}) => {
                     <View>
                         <Item>
                             <Input 
-                                placeholder="Enter entry title here..."
+                                placeholder="Entry Name"
                                 onChangeText={props.handleChange('title')}
                                 value={props.values.title}
                             />
                         </Item>
                         <Item>
                             <Input 
-                                placeholder="Enter More Stuff here"
+                                placeholder="Tell me about it"
                                 onChangeText={props.handleChange('content')}
                                 multiline
                                 value={props.values.content}

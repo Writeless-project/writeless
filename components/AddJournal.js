@@ -22,7 +22,7 @@ const AddJournal = ({ addJournal, navigation }) => {
                     <View>
                         <Item>
                             <Input 
-                                placeholder="Enter journal title here..."
+                                placeholder="Journal Name"
                                 onChangeText={props.handleChange('title')}
                                 value={props.values.title}
                             />

@@ -29,14 +29,14 @@ const EditEntry = (props) => {
                     <View>
                         <Item>
                             <Input 
-                                placeholder="Enter entry title here..."
+                                placeholder="Entry Name"
                                 onChangeText={props.handleChange('title')}
                                 value={props.values.title}
                             />
                         </Item>
                         <Item>
                             <Input 
-                                placeholder="Enter entry content here..."
+                                placeholder="Entry content"
                                 onChangeText={props.handleChange('content')}
                                 value={props.values.content}
                                 multiline
