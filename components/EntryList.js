@@ -24,10 +24,6 @@ const renderList = (entries, navigation, deleteEntry) => {
               );
         }
 
-        function callDeleteEntry() {
-            deleteEntry(this);
-        }
-
         function callEditEntry() {
             navigation.navigate('EditEntry', this);
         }
@@ -45,7 +41,6 @@ const renderList = (entries, navigation, deleteEntry) => {
             }, {
                 text: 'Delete',
                 backgroundColor: '#dd0000',
-                // onPress: callDeleteEntry.bind(entry)
                 onPress: confirmDelete.bind(entry)
             }];
 

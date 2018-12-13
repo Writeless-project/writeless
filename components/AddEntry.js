@@ -2,7 +2,6 @@ import React from 'react';
 import {
     View,
     StyleSheet,
-    Keyboard
 } from 'react-native';
 import { Formik } from 'formik';
 import { Text, Button, Item, Input, Form } from 'native-base';
@@ -10,10 +9,8 @@ import { Text, Button, Item, Input, Form } from 'native-base';
 const AddEntry = ({ addEntry, navigation}) => {
     selectedJournal = navigation.state.params;
     // Is this the 'react way' of doing this? I don't know any other way w/out making it a class.
-    function onSubmit(formValues, {resetForm}) {
+    function onSubmit(formValues) {
         addEntry(formValues, selectedJournal);
-        Keyboard.dismiss();
-        resetForm({});
         navigation.goBack();
     }
     

@@ -15,14 +15,9 @@ export default class EditJournalScreen extends React.Component {
     
     static navigationOptions = ({navigation}) => ({
         title: "Edit Journal",
-        headerLeft: (
-            <View>
-                <TouchableOpacity onPress={() => navigation.goBack() }>
-                    <Entypo name={'chevron-small-left' || "chevron-left"} size={42 || 80} color="blue" />
-                </TouchableOpacity>
-            </View>
-        ),
     });
+
+    ComponentWill
 
     render() {
         return (

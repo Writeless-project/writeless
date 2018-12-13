@@ -11,11 +11,8 @@ const EditEntry = (props) => {
     const navigation = props.navigation;
     const selectedEntry = props.navigation.state.params;
     
-    // Is this the 'react way' of doing this? I don't know any other way w/out making it a class.
-    function onSubmit(formValues, {resetForm}) {
+    function onSubmit(formValues) {
         props.editEntry(formValues, selectedEntry);
-        Keyboard.dismiss();
-        resetForm({});
         navigation.goBack();
     }
     
@@ -40,7 +37,7 @@ const EditEntry = (props) => {
                                 onChangeText={props.handleChange('content')}
                                 value={props.values.content}
                                 multiline
-                                style={{paddingTop: 18, paddingBottom: 18}}
+                                style={styles.largeInput}
                             />
                         </Item>
 
@@ -63,6 +60,11 @@ const styles = StyleSheet.create({
     button: {
         marginTop: 20,
         margin: 20,
+    }, largeInput: {
+        paddingTop: 18,
+        paddingBottom: 18,
+        // TODO remove once we're not using a keyboard
+        maxHeight: 225
     }
 });
 
