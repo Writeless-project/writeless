@@ -36,6 +36,7 @@ const AddEntry = ({ addEntry, navigation}) => {
                                 onChangeText={props.handleChange('content')}
                                 multiline
                                 value={props.values.content}
+                                style={{paddingTop: 18, paddingBottom: 18}}
                             />
                         </Item>
 
@@ -43,7 +44,7 @@ const AddEntry = ({ addEntry, navigation}) => {
                         full 
                         style={styles.button}
                         onPress={props.handleSubmit}>
-                            <Text>Submit</Text>
+                            <Text>Save</Text>
                         </Button>
                         <Button title={'Go Back'} onPress={() => navigation.goBack()}/>                    
                     </View>

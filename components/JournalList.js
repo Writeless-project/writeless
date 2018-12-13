@@ -46,7 +46,7 @@ const renderList = (journals, navigation, deleteJournal) => {
             }];
 
             return (
-                <Swipeout key={i} right={swipeoutBtns} sensitivity={100} autoClose={true}>
+                <Swipeout key={i} right={swipeoutBtns} style={styles.swipeout} sensitivity={50} autoClose={true}>
                     <ListItem style={styles.listItem} onPress={openEntryList.bind(journal)}> 
                         <Text>
                             {journal.title || "No journals. Please press the Add button below to add a journal!"}

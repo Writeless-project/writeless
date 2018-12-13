@@ -39,6 +39,8 @@ const EditEntry = (props) => {
                                 placeholder="Enter entry content here..."
                                 onChangeText={props.handleChange('content')}
                                 value={props.values.content}
+                                multiline
+                                style={{paddingTop: 18, paddingBottom: 18}}
                             />
                         </Item>
 
@@ -46,7 +48,7 @@ const EditEntry = (props) => {
                             full 
                             style={styles.button}
                             onPress={props.handleSubmit}>
-                            <Text>Submit</Text>
+                            <Text>Save Changes</Text>
                         </Button>
                         <Button title={'Go Back'} onPress={() => navigation.goBack()}/>                    
                     </View>
