@@ -22,6 +22,7 @@ const AddEntry = ({ addEntry, navigation}) => {
                     <View>
                         <Item>
                             <Input 
+                                autoFocus
                                 placeholder="Entry Name"
                                 onChangeText={props.handleChange('title')}
                                 value={props.values.title}
@@ -41,7 +42,7 @@ const AddEntry = ({ addEntry, navigation}) => {
                         full 
                         style={styles.button}
                         onPress={props.handleSubmit}>
-                            <Text>Save</Text>
+                            <Text>Save Entry</Text>
                         </Button>
                         <Button title={'Go Back'} onPress={() => navigation.goBack()}/>                    
                     </View>

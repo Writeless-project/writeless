@@ -21,17 +21,18 @@ const AddJournal = ({ addJournal, navigation }) => {
                 {props => (
                     <View>
                         <Item>
-                            <Input 
+                            <Input
+                                autoFocus 
                                 placeholder="Journal Name"
                                 onChangeText={props.handleChange('title')}
                                 value={props.values.title}
                             />
                         </Item>
                         <Button 
-                        full 
-                        style={styles.button}
-                        onPress={props.handleSubmit}>
-                            <Text>Submit</Text>
+                            full 
+                            style={styles.button}
+                            onPress={props.handleSubmit}>
+                            <Text>Create Journal</Text>
                         </Button>
                         <Button title={'Go Back'} onPress={() => navigation.goBack()}/>                    
                     </View>

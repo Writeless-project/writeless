@@ -26,6 +26,7 @@ const EditEntry = (props) => {
                     <View>
                         <Item>
                             <Input 
+                                autoFocus
                                 placeholder="Entry Name"
                                 onChangeText={props.handleChange('title')}
                                 value={props.values.title}

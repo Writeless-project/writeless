@@ -28,7 +28,8 @@ const EditJournal = (props) => {
                 {props => (
                     <View>
                         <Item>
-                            <Input 
+                            <Input
+                                autoFocus 
                                 placeholder="Journal Name"
                                 onChangeText={props.handleChange('title')}
                                 value={props.values.title}
@@ -38,7 +39,7 @@ const EditJournal = (props) => {
                             full 
                             style={styles.button}
                             onPress={props.handleSubmit}>
-                            <Text>Submit</Text>
+                            <Text>Save Journal</Text>
                         </Button>
                         <Button title={'Go Back'} onPress={() => navigation.goBack()}/>                    
                     </View>
