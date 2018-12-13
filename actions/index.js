@@ -1,6 +1,10 @@
 import * as actionTypes from '../constants/ActionTypes';
 import { AsyncStorage } from 'react-native';
 
+const monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
+
 const _addEntry = entries => {
     return {
         type: actionTypes.ADD_ENTRY,
@@ -140,7 +144,7 @@ export const addJournal = (journal) => {
 
             journals.push({
                 id: Date.now(),
-                title: journal.title || date.toDateString(),
+                title: journal.title || `${monthNames[date.getMonth()]} ${date.getFullYear()}`,
                 createdAt: date
             });
             
@@ -162,7 +166,7 @@ const _editJournal = journals => {
 export const editJournal = (formValues, selectedJournal) => {
     return async (dispatch) => {
         try {
-            let skipUpdate = false;
+            let updateStorage = false;
             // if we can access the state here, we won't need to get the journals again here
             let journals = JSON.parse(await AsyncStorage.getItem('Journals')) || [];
             
@@ -171,20 +175,22 @@ export const editJournal = (formValues, selectedJournal) => {
                 // if it's the edited journal, return the new content
                 // as soon as we have properties other than title we'll have to loop through keys & compare dynamically
                 if (currJournal.id === selectedJournal.id && currJournal.title != formValues.title) {
+                    // console.error('mello jello');
+                    let date = new Date();
+                    updateStorage = true;
                     return {
                         id: currJournal.id,
-                        title: formValues.title || new Date().toDateString(),
+                        title: formValues.title || `${monthNames[date.getMonth()]} ${date.getFullYear()}`,
                         createdAt: currJournal.createdAt
                     }
                 } else {
                     // else return the already existing content
-                    skipUpdate = true;
                     return currJournal;
                 }
             });
 
             // if skipUpdate is false, don't update the state or AsyncStorage
-            if (!skipUpdate) {
+            if (updateStorage) {
                 await AsyncStorage.setItem('Journals', JSON.stringify(journals)); // set the journals in AsyncStorage
                 dispatch(_editJournal(journals)); // set the journals in the state
             }
